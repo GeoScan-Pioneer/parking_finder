@@ -1,2 +1,8 @@
 .idea
 .idea/*
+Class_NoPlace
+Class_Place
+Class_*
+Class_NoPlace/*
+Class_Place/*
+Class_*/*
