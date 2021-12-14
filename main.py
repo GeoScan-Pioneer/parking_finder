@@ -57,11 +57,11 @@ while True:
         new_command = True
     elif key == ord('q'):
         print('q')
-        command_yaw += increment_deg
+        command_yaw -= increment_deg
         new_command = True
     elif key == ord('e'):
         print('e')
-        command_yaw -= increment_deg
+        command_yaw += increment_deg
         new_command = True
     elif key == ord('h'):
         print('h')
