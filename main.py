@@ -57,11 +57,11 @@ while True:
         new_command = True
     elif key == ord('q'):
         print('q')
-        command_yaw -= increment_deg
+        command_yaw += increment_deg
         new_command = True
     elif key == ord('e'):
         print('e')
-        command_yaw += increment_deg
+        command_yaw -= increment_deg
         new_command = True
     elif key == ord('h'):
         print('h')
@@ -82,16 +82,16 @@ while True:
                 fontScale=0.5, color=(0, 0, 255))
 
     if predictions.prediction == 'Class_Place' and not leds_sent:
+        pioneer.led_control(0, 255, 0, 0)
         pioneer.led_control(1, 255, 0, 0)
         pioneer.led_control(2, 255, 0, 0)
         pioneer.led_control(3, 255, 0, 0)
-        pioneer.led_control(4, 255, 0, 0)
         leds_sent = True
     elif predictions.prediction == 'Class_NoPlace' and not leds_sent:
+        pioneer.led_control(0, 0, 0, 0)
         pioneer.led_control(1, 0, 0, 0)
         pioneer.led_control(2, 0, 0, 0)
         pioneer.led_control(3, 0, 0, 0)
-        pioneer.led_control(4, 0, 0, 0)
         leds_sent = True
 
     if predictions.prediction != old_prediction:
