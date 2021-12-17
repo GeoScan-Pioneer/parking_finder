@@ -21,6 +21,11 @@ new_command = False
 leds_sent = False
 old_prediction = None
 
+def local_to_global(dx, dy):
+    dx_t = dx*np.cos(command_yaw) - dy*np.sin(command_yaw)
+    dy_t = dx*np.sin(command_yaw) + dy*np.cos(command_yaw)
+    return dx_t, dy_t
+
 while True:
     raw = pioneer.get_raw_video_frame()
     frame = cv2.imdecode(np.frombuffer(raw, dtype=np.uint8), cv2.IMREAD_COLOR)
@@ -39,21 +44,34 @@ while True:
     if key == 27:  # esc
         print('esc pressed')
         pioneer.land()
-    if key == ord('w'):
+    if key == 27:  # esc
+        print('esc pressed')
+        cv2.destroyAllWindows()
+        pioneer_mini.land()
+        break
+    elif key == ord('w'):
         print('w')
-        command_y += increment_xy
+        dx, dy = local_to_global(0, increment_xy)
+        command_x += dx
+        command_y += dy
         new_command = True
     elif key == ord('s'):
         print('s')
-        command_y -= increment_xy
+        dx, dy = local_to_global(0, -increment_xy)
+        command_x += dx
+        command_y += dy
         new_command = True
     elif key == ord('a'):
         print('a')
-        command_x -= increment_xy
+        dx, dy = local_to_global(-increment_xy, 0)
+        command_x += dx
+        command_y += dy
         new_command = True
     elif key == ord('d'):
         print('d')
-        command_x += increment_xy
+        dx, dy = local_to_global(increment_xy, 0)
+        command_x += dx
+        command_y += dy
         new_command = True
     elif key == ord('q'):
         print('q')
